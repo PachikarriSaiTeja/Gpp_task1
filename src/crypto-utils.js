@@ -1,6 +1,7 @@
 ﻿// src/crypto-utils.js
 import fs from "fs";
 import { constants, privateDecrypt, publicEncrypt, sign } from "crypto";
+
 export function decryptSeedBase64(encryptedBase64, privateKeyPath) {
   try {
     const privateKeyPem = fs.readFileSync(privateKeyPath, "utf8");
@@ -18,6 +19,7 @@ export function decryptSeedBase64(encryptedBase64, privateKeyPath) {
     throw new Error("Decryption failed: " + err.message);
   }
 }
+
 export function signCommitHashHex(commitHashHex, privateKeyPath) {
   const priv = fs.readFileSync(privateKeyPath, "utf8");
   const commitBuffer = Buffer.from(commitHashHex, "hex");
@@ -30,12 +32,13 @@ export function signCommitHashHex(commitHashHex, privateKeyPath) {
       saltLength: constants.RSA_PSS_SALTLEN_MAX_SIGN
     }
   );
-  return signature;
+  return signature; // Buffer
 }
+
 export function encryptSignatureForInstructor(signatureBuffer, instructorPublicKeyPathOrPem) {
   let pub;
   try {
-    if (instructorPublicKeyPathOrPem.trim().startsWith("-----BEGIN")) {
+    if (typeof instructorPublicKeyPathOrPem === "string" && instructorPublicKeyPathOrPem.trim().startsWith("-----BEGIN")) {
       pub = instructorPublicKeyPathOrPem;
     } else {
       pub = fs.readFileSync(instructorPublicKeyPathOrPem, "utf8");
