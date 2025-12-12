@@ -1,0 +1,17 @@
+﻿{
+  "name": "pki-2fa-microservice",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PKI + TOTP 2FA microservice for Partnr GPP task",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node src/server.js",
+    "keygen": "node src/keygen.js"
+  },
+  "author": "You",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

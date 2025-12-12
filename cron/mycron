@@ -1,0 +1,1 @@
+﻿* * * * * /usr/bin/node /app/src/scripts/cronTask.js >> /var/log/cron.log 2>&1
